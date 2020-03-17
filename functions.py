@@ -6,11 +6,17 @@ def getToday():
 
 def titlePresent(title, inputList):
     for i in inputList:
-        if checkTitle([title],i.split()):
-            result = True
-            break
-    else:
-        result = False
+        inputPart = i.split(";")
+        if checkTitle([title],inputPart[0].split()):
+            if (len(inputPart) > 1):
+                result = checkExtraParts(title,inputPart)
+                if(result):
+                    break
+            else:
+                result=True
+                break
+        else:
+            result = False
     return result
 
 def checkTitle(title, words): 
@@ -19,8 +25,21 @@ def checkTitle(title, words):
         k = [ w for w in words if w in substring.upper() ] 
         if (len(k) == len(words) ): 
             res.append(substring) 
-              
     return res != []
+
+def checkExtraParts(title,inputPart):
+    if (len(inputPart) > 1):
+        retVal = False
+        for x in range(1, len(inputPart)):
+            if (inputPart[x] is not None and "NOT" in inputPart[x].upper()):
+                if (inputPart[x][3:].upper() not in title.upper()):
+                    retVal = True
+                else:
+                    retVal = False
+                    break
+        return retVal
+    else:
+        return False
 
 def buildHTML(results):
     template = """\
