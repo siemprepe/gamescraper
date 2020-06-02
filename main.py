@@ -10,6 +10,8 @@ import engine_twente
 import engine_groningen
 import engine_gamecorner
 import engine_pressstart
+import engine_gameking
+import engine_passionforgames
 
 print("Scraping for " + functions.getToday())
 print("Reading input")
@@ -34,6 +36,10 @@ print("Processing RetroGamesCorner")
 results.extend(engine_gamecorner.process(inputList))
 print("Processing Press Start Games")
 results.extend(engine_pressstart.process(inputList))
+print("Processing Retro Game King")
+results.extend(engine_gameking.process(inputList))
+print("Processing Passion for games")
+results.extend(engine_passionforgames.process(inputList))
 
 print("Peparing and sending email")
 gamescraper_mail.sendHtmlMail(functions.buildHTML(results))
